@@ -16,8 +16,8 @@ Order By c Desc
 
 Q.3 What are the top 3 values of total invoices?
 
-Select total From invoices
-Orders By total Desc
+Select total From invoices <br>
+Orders By total Desc <br>
 Limit 3
 
 Q.4 Which city has the best customers? We would like to throw a promotional Music Festival in the city we made the most money. Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice totals.
