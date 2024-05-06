@@ -10,7 +10,7 @@ Q.1 Who is the senior most employee based on job title? <br>
 **Description**: This query returns the senior-most employee based on job title. <br>
 **SQL**:
 ```sql
-Select * From employee <br>
+Select * From employee 
 Order By levels Desc Limit 1  
 ```
 
@@ -19,9 +19,9 @@ Q.2 Which country has the most invoices? <br>
 **SQL**:
 ```sql
 
-Select Count(*) as c, billing_country <br>
-From invoice <br>
-Group By billing_country <br>
+Select Count(*) as c, billing_country 
+From invoice 
+Group By billing_country 
 Order By c Desc
 ```
 
@@ -31,8 +31,8 @@ Q.3 What are the top 3 values of total invoices? <br>
 **SQL**:
 ```sql
 
-Select total From invoices <br>
-Orders By total Desc <br>
+Select total From invoices 
+Orders By total Desc 
 Limit 3
 ```
 
@@ -41,9 +41,9 @@ Q.4 Which city has the best customers? We would like to throw a promotional Musi
 **SQL**:
 ```sql
 
-Select Sum(total) As invoice_total, billing_city <br>
-From invoice <br>
-Group By billing_city <br>
+Select Sum(total) As invoice_total, billing_city 
+From invoice
+Group By billing_city 
 Order By invoice_total Desc
 ```
 
@@ -52,11 +52,11 @@ Q.5 Who is the best customer? The customer who has spent the most money will be 
 **SQL**:
 ```sql
 
-Select customer.customer_id, customer.first_name, customer.last_name, <br>
-Sum(invoice.total) as total <br>
-From customer <br>
-Join invoice on customer.customer_id = invoice.customer_id <br>
-Group By customer.customer_id <br>
-Order By total Desc <br>
+Select customer.customer_id, customer.first_name, customer.last_name, 
+Sum(invoice.total) as total 
+From customer
+Join invoice on customer.customer_id = invoice.customer_id 
+Group By customer.customer_id 
+Order By total Desc 
 Limit 1 
 ```
