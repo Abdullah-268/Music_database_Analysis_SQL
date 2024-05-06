@@ -4,12 +4,15 @@ This repository contains a portfolio of SQL database scripts, including schema d
 
 I have analyzed the data from the music database and answered 9 sample queries in this analysis. <br>
 
+Sample queries: <br> 
+
 Q.1 Who is the senior most employee based on job title? <br>
-**Description**: This query returns the senior-most employee based on job title. <be>
+**Description**: This query returns the senior-most employee based on job title. <br>
 **SQL**:
 ```sql
 Select * From employee <br>
 Order By levels Desc Limit 1  
+```
 
 Q.2 Which country has the most invoices? <br>
 **Description**: This query returns the country having the most invoices. <br>
@@ -19,7 +22,9 @@ Q.2 Which country has the most invoices? <br>
 Select Count(*) as c, billing_country <br>
 From invoice <br>
 Group By billing_country <br>
-Order By c Desc 
+Order By c Desc
+```
+
 
 Q.3 What are the top 3 values of total invoices? <br>
 **Description**: This query retrieves the top 3 values of total invoices. <br>
@@ -29,6 +34,7 @@ Q.3 What are the top 3 values of total invoices? <br>
 Select total From invoices <br>
 Orders By total Desc <br>
 Limit 3
+```
 
 Q.4 Which city has the best customers? We would like to throw a promotional Music Festival in the city where we made the most money. Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice totals. <br>
 **Description**: The query you provided aims to identify the city with the highest total sum of invoice amounts. <br>
@@ -38,7 +44,8 @@ Q.4 Which city has the best customers? We would like to throw a promotional Musi
 Select Sum(total) As invoice_total, billing_city <br>
 From invoice <br>
 Group By billing_city <br>
-Order By invoice_total Desc 
+Order By invoice_total Desc
+```
 
 Q.5 Who is the best customer? The customer who has spent the most money will be declared the best customer. <br>
 **Description**: This query retrieves the data of the customer who has spent the most money. <br>
@@ -52,3 +59,4 @@ Join invoice on customer.customer_id = invoice.customer_id <br>
 Group By customer.customer_id <br>
 Order By total Desc <br>
 Limit 1 
+```
