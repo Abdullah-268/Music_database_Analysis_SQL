@@ -33,9 +33,10 @@ Order By c Desc
 **SQL**:
 ```sql
 
-Select total From invoices 
-Orders By total Desc 
-Limit 3
+SELECT total 
+FROM invoice 
+ORDER BY total DESC 
+LIMIT 3;
 ```
 
 ### 4. City with Best Customers
