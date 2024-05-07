@@ -2,7 +2,7 @@
 
 This repository contains a portfolio of SQL database scripts, including schema definition, sample data, and example queries. <br>
 
-I have analyzed the data from the music database and answered 9 sample queries in this analysis. <br>
+I have analyzed the data from the music database and answered 11 sample queries in this analysis. <br>
 
 Sample queries: <br> 
 
@@ -103,7 +103,75 @@ Where milliseconds > (
   From track)
 Order By milliseconds Desc;
 ```
+Q.9 Find how much amount spent by each Customer on artists? Write a query to return the customer name, artist name, and total spent. <br>
+**Description**: This query will return the amount spent by each customer on artists. It will provide the customer's name, artist's name, and the total amount spent by that customer on that particular artist. <br>
+**SQL**
+```sql
 
+With best_selling_artist As (
+  Select artist.artist_id As artist_id, artist.name As artist_name,
+  Sum(invoice_line.unit_price*invoice_line.quantity) As total_sales
+  From invoice_line
+  Join track On track.track_id = invoice_line.track_id
+  Join album On album.album_id = track.album_id
+  Join artist On artist.artist_id = album.artist_id
+  Group By 1, 2
+  Order By 3 Desc
+  Limit 1
+)
+Select c.customer_id, c.first_name, c.last_name, bsa.artist_name,
+Sum(il.unit_price*il.quantity) As amount_spent
+From invoice
+Join customer c On c.customer_id = invoice.customer_id
+Join invoice_line il On il.invoice_id = invoice.invoice_id
+Join track t On t.track_id = il.track_id
+Join album alb On alb.album_id = t.album_id
+Join best_selling_artist bsa On bsa.artist_id = alb.artist_id
+Group By 1, 2, 3, 4
+Order By 5 Desc;
+```
+Q.10 We want to find out the most popular music genre for each country. We determine the most popular genre as the genre with the highest amount of purchases. Write a query that returns each country along with the top genre. For countries where the maximum number of purchases is shared return all genres. <br>
+**Description**: This query will return each country along with the most popular music genre(s). If there's a single genre with the highest amount of purchases in a country, it will return that genre. However, if multiple genres have the same maximum number of purchases in a country, it will return all of those genres. <br>
+**SQL**
+```sql
 
+With popular_genre As
+(
+  Select Count(invoice_line.quantity) As purchases, customer.country, genre.name, genre.genre_id,
+  Row_Number() Over(Partition By customer.country Order By Count(invoice_line.quantity) Desc) As Rowno
+  From invoice_line
+  Join invoice On invoice.invoice_id = invoice_line.invoice_id
+  Join customer On customer.customer_id = invoice.customer_id
+  Join track On track.track_id = invoice_line.track_id
+  Join genre On genre.genre_id = track.genre_id
+  Group By 2,3,4
+)
+Select * From popular_genre Where RowNo = 1;
+```
+Q.11 Write a query that determines the customer that has spent the most on music for each country. Write a query that returns the country along with the top customer and how much they spent. For countries where the top amount spent is shared, provide all customers who spent this amount. <br>
+**Description**: This query will return the country along with the top customer(s) and how much they spent. For countries where the top amount spent is shared among multiple customers, it will provide all those customers who spent this amount. <br>
+**SQL**
+```sql
+
+With Recursive
+ customer_with_country As (
+  Select customer.customer_id,first_name, last_name,billing_country,Sum(total) As total_spending
+  From invoice
+  Join customer On customer.customer_id = invoice.customer_id
+  Group By 1,2,3,4
+  Order by 2,3 Desc),
+
+country_max_spending As(
+  Select billing_country,Max(total_spending) As max_spending
+  From customer_with_country
+  Group By billing_country)
+
+Select cc.billing_country, cc.total_spending, cc.first_name, cc.last_name, cc.customer_id
+From customer_with_country cc
+Join country_max_spending ms
+On cc.billing_country = ms.billing_country
+Where cc.total_spending = ms.max_spending
+Order by 1;
+```
 
 
