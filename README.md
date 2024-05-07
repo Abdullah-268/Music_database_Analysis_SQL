@@ -60,3 +60,50 @@ Group By customer.customer_id
 Order By total Desc 
 Limit 1 
 ```
+Q.6 Write a query to return the email, first name, last name, & Genre of all Rock Music listeners. Return your list ordered alphabetically by email starting with A. <br>
+**Description**: This will retrieve the first name, last name, & Genre of all Rock music listeners list ordered alphabetically by email starting with A. <br>
+**SQL**
+```sql
+
+Select Distinct email,first_name, last_name
+From customer
+Join invoice On customer.customer_id = invoice.customer_id
+Join invoice_line On invoice.invoice_id = invoice_line.invoice_id
+Where track_id In(
+  Select track_id From track
+  Join genre On track.genre_id = genre.genre_id
+  Where genre.name Like 'Rock'
+)
+Order By email;
+```
+Q.7 Let's invite the artists who have written the most rock music in our dataset. Write that returns the Artist name and total track count of the top 10 rock bands. <br>
+**Description**: This will retrieve the Artist name and total crack count of the top 10 rock bands. <br>
+**SQL**
+```sql
+
+Select artist.artist_id, artist.name,Count(artist.artist_id) As number_of_songs
+From track
+Join album On album.album_id = track.album_id
+Join artist On artist.artist_id = album.artist_id
+Join genre On genre.genre_id = track.genre_id
+Where genre.name Like 'Rock'
+Group By artist.artist_id
+Order By number_of_songs Desc
+Limit 10;
+```
+Q.8 Return all the track names that have a song length longer than the average song length. Return the names and milliseconds for each track. Order by the song length with the longest songs listed first. <br>
+**Description*: This query will return the names and lengths (in milliseconds) of tracks that have a duration longer than the average duration of all songs in the dataset. The list will be ordered by song length, with the longest songs listed first. <br>
+**SQL**
+```sql
+
+Select name,milliseconds
+From track
+Where milliseconds > (
+  Select Avg(milliseconds) As avg_track_length
+  From track)
+Order By milliseconds Desc;
+```
+
+
+
+
