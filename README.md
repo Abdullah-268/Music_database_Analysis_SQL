@@ -1,21 +1,23 @@
-# Music_database_SQL
+# Music Database SQL
 
-This repository contains a portfolio of SQL database scripts, including schema definition, sample data, and example queries. <br>
+Welcome to the Music Database SQL repository! This repository is a comprehensive collection of SQL database scripts tailored for music industry analysis. It includes schema definitions, sample datasets, and a variety of example queries. These scripts have been meticulously crafted to explore various facets of the music database, ranging from customer spending behavior to genre popularity across different regions. 
 
-I have analyzed the data from the music database and answered 11 sample queries in this analysis. <br>
+## Sample Queries
 
-Sample queries: <br> 
+Below are 11 example queries along with their descriptions and corresponding SQL scripts:
 
-Q.1 Who is the senior most employee based on job title? <br>
-**Description**: This query returns the senior-most employee based on job title. <br>
+
+
+### 1. Senior Most Employee
+**Description:** Returns the senior-most employee based on job title. <br>
 **SQL**:
 ```sql
 Select * From employee 
 Order By levels Desc Limit 1  
 ```
 
-Q.2 Which country has the most invoices? <br>
-**Description**: This query returns the country having the most invoices. <br>
+### 2. Most Invoices by Country
+**Description**: Returns the country with the most invoices. <br>
 **SQL**:
 ```sql
 
@@ -26,8 +28,8 @@ Order By c Desc
 ```
 
 
-Q.3 What are the top 3 values of total invoices? <br>
-**Description**: This query retrieves the top 3 values of total invoices. <br>
+### 3. Top 3 Values of Total Invoices
+**Description**: Retrieves the top 3 values of total invoices. <br>
 **SQL**:
 ```sql
 
@@ -36,8 +38,8 @@ Orders By total Desc
 Limit 3
 ```
 
-Q.4 Which city has the best customers? We would like to throw a promotional Music Festival in the city where we made the most money. Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice totals. <br>
-**Description**: The query you provided aims to identify the city with the highest total sum of invoice amounts. <br>
+### 4. City with Best Customers
+**Description**: Query to find the city with the highest sum of invoice totals.. <br>
 **SQL**:
 ```sql
 
@@ -47,8 +49,8 @@ Group By billing_city
 Order By invoice_total Desc
 ```
 
-Q.5 Who is the best customer? The customer who has spent the most money will be declared the best customer. <br>
-**Description**: This query retrieves the data of the customer who has spent the most money. <br>
+### 5. Best Customer
+**Description**: Query to retrieve data of the customer who has spent the most money. <br>
 **SQL**:
 ```sql
 
@@ -60,8 +62,8 @@ Group By customer.customer_id
 Order By total Desc 
 Limit 1 
 ```
-Q.6 Write a query to return the email, first name, last name, & Genre of all Rock Music listeners. Return your list ordered alphabetically by email starting with A. <br>
-**Description**: This will retrieve the first name, last name, & Genre of all Rock music listeners list ordered alphabetically by email starting with A. <br>
+### 6. Rock Music Listeners
+**Description**: Query to return the email, first name, last name, & genre of all Rock music listeners ordered alphabetically by email. <br>
 **SQL**
 ```sql
 
@@ -76,8 +78,8 @@ Where track_id In(
 )
 Order By email;
 ```
-Q.7 Let's invite the artists who have written the most rock music in our dataset. Write that returns the Artist name and total track count of the top 10 rock bands. <br>
-**Description**: This will retrieve the Artist name and total crack count of the top 10 rock bands. <br>
+### 7. Top Rock Bands
+**Description**: Query to return the artist name and total track count of the top 10 rock bands. <br>
 **SQL**
 ```sql
 
@@ -91,8 +93,8 @@ Group By artist.artist_id
 Order By number_of_songs Desc
 Limit 10;
 ```
-Q.8 Return all the track names that have a song length longer than the average song length. Return the names and milliseconds for each track. Order by the song length with the longest songs listed first. <br>
-**Description*: This query will return the names and lengths (in milliseconds) of tracks that have a duration longer than the average duration of all songs in the dataset. The list will be ordered by song length, with the longest songs listed first. <br>
+### 8. Longest Tracks
+**Description*: Query to return all track names with a song length longer than the average song length, ordered by song length. <br>
 **SQL**
 ```sql
 
@@ -103,8 +105,8 @@ Where milliseconds > (
   From track)
 Order By milliseconds Desc;
 ```
-Q.9 Find how much amount spent by each Customer on artists? Write a query to return the customer name, artist name, and total spent. <br>
-**Description**: This query will return the amount spent by each customer on artists. It will provide the customer's name, artist's name, and the total amount spent by that customer on that particular artist. <br>
+### 9. Customer Spending on Artists
+**Description**: Query to return the customer name, artist name, and total spent by each customer on artists. <br>
 **SQL**
 ```sql
 
@@ -130,8 +132,8 @@ Join best_selling_artist bsa On bsa.artist_id = alb.artist_id
 Group By 1, 2, 3, 4
 Order By 5 Desc;
 ```
-Q.10 We want to find out the most popular music genre for each country. We determine the most popular genre as the genre with the highest amount of purchases. Write a query that returns each country along with the top genre. For countries where the maximum number of purchases is shared return all genres. <br>
-**Description**: This query will return each country along with the most popular music genre(s). If there's a single genre with the highest amount of purchases in a country, it will return that genre. However, if multiple genres have the same maximum number of purchases in a country, it will return all of those genres. <br>
+### 10. Popular Music Genre by Country
+**Description**: Query to return each country along with the most popular music genre(s). <br>
 **SQL**
 ```sql
 
@@ -148,8 +150,8 @@ With popular_genre As
 )
 Select * From popular_genre Where RowNo = 1;
 ```
-Q.11 Write a query that determines the customer that has spent the most on music for each country. Write a query that returns the country along with the top customer and how much they spent. For countries where the top amount spent is shared, provide all customers who spent this amount. <br>
-**Description**: This query will return the country along with the top customer(s) and how much they spent. For countries where the top amount spent is shared among multiple customers, it will provide all those customers who spent this amount. <br>
+### 11. Top Spending Customers by Country
+**Description**:Query to return the country along with the top customer(s) and their spending. <br>
 **SQL**
 ```sql
 
