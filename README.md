@@ -2,6 +2,10 @@
 
 Welcome to the Music Database SQL repository! This repository is a comprehensive collection of SQL database scripts tailored for music industry analysis. It includes schema definitions, sample datasets, and a variety of example queries. These scripts have been meticulously crafted to explore various facets of the music database, ranging from customer spending behavior to genre popularity across different regions. 
 
+## Database and Tools
+* Postgre SQL
+* PgAdmin4
+
 ## Sample Queries
 
 Below are 11 example queries along with their descriptions and corresponding SQL scripts:
